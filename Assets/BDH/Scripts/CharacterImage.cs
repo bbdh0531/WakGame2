@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class CharacterImage : MonoBehaviour
 {
     public Image character_imgae;
+    public bool stage_clear = true;
 
     public void SetImage(Sprite _character_image)
     {
