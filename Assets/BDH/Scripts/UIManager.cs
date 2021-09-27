@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour
 
     public static UIManager instance;
     public List<Sprite> list_image = new List<Sprite>();
-    //public List<GameObject> ui_list = new List<GameObject>();
+    public List<GameObject> ui_list = new List<GameObject>();
     public Transform[] parent;
     public int page_value;
     public Text gold_text;
@@ -26,7 +26,8 @@ public class UIManager : MonoBehaviour
         CharacterImage tmp = Instantiate<CharacterImage>(prefabs);
         character_Image_list.Add(tmp);
         tmp.SetImage(list_image[count]);
-        tmp.transform.SetParent(parent[page_tr_page], false);
+        tmp.tr = tmp.GetComponent<Transform>();
+        tmp.tr.SetParent(parent[page_tr_page], false);
         count++;
         return tmp;
     }
@@ -54,11 +55,34 @@ public class UIManager : MonoBehaviour
     public void NextPage()
     {
         page_state++;
+        PageState();
     }
 
     public void PrevPage()
     {
         page_state--;
+        PageState();
+    }
+
+    public void StageMapVisble(bool _isVisble)
+    {
+        if(_isVisble)
+        {
+            for (int i = 0; i < ui_list.Count; i++)
+            {
+                ui_list[i].gameObject.SetActive(false);
+            }
+            ui_list[3].gameObject.SetActive(true);
+        }
+        else
+        {
+            for (int i = 0; i < ui_list.Count; i++)
+            {
+                ui_list[i].gameObject.SetActive(true);
+            }
+            ui_list[0].gameObject.SetActive(false);
+            ui_list[3].gameObject.SetActive(false);
+        }
     }
 
     void PageState()
@@ -86,7 +110,6 @@ public class UIManager : MonoBehaviour
 
     void SpecialCharacterLock()
     {
-
         for (int i = 0; i < character_lock.Length; i++)
         {
             if (character_lock[i] >= character_Image_list.Count)
@@ -128,13 +151,8 @@ public class UIManager : MonoBehaviour
         }
         CharacteImageCreate();
         SetPage();
-        SpecialCharacterLock();
-        gold_text.text = Manager.instance.compensation_gold.ToString();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         PageState();
+        SpecialCharacterLock();
+        gold_text.text = Manager.instance.gold.ToString();
     }
 }

@@ -8,6 +8,7 @@ public class CharacterImage : MonoBehaviour
 {
     public Image character_imgae;
     public bool stage_clear = true;
+    public Transform tr;
 
     public void SetImage(Sprite _character_image)
     {

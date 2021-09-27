@@ -2,27 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Manager : MonoBehaviour
+public class Manager : Character
 {
-
+    
     public int compensation_gold;
+    public int gold;
 
-    int gold;
     public int stage_clear;
     public static Manager instance;
-
+    
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        if(instance == null)
+        {
+            instance = this;
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        if(instance == null)
-        {
-            instance = this;
-        }
+
     }
 
     public void StageClear()
