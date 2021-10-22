@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Manager : Character
+public class Manager : MonoBehaviour
 {
     
     public int compensation_gold;

@@ -16,14 +16,14 @@ public class UIManager : MonoBehaviour
 
     int page_state;
     int page_tr_page;
-    CharacterImage prefabs;
+    Unit_Image prefabs;
     int count;
-    List<CharacterImage> character_Image_list = new List<CharacterImage>();
+    List<Unit_Image> character_Image_list = new List<Unit_Image>();
 
-    CharacterImage ImageCreate()
+    Unit_Image ImageCreate()
     {
-        prefabs = Resources.Load<CharacterImage>("Characterimage");
-        CharacterImage tmp = Instantiate<CharacterImage>(prefabs);
+        prefabs = Resources.Load<Unit_Image>("Unit_Image");
+        Unit_Image tmp = Instantiate<Unit_Image>(prefabs);
         character_Image_list.Add(tmp);
         tmp.SetImage(list_image[count]);
         tmp.tr = tmp.GetComponent<Transform>();

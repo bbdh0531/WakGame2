@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class CharacterImage : MonoBehaviour
+public class Unit_Image : MonoBehaviour
 {
     public Image character_imgae;
     public bool stage_clear = true;
