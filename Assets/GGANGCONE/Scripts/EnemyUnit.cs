@@ -14,11 +14,6 @@ public class EnemyUnit : Character
         anim = GetComponent<Animator>();
     }
 
-    private void OnEnable()
-    {
-        curAttackDelay = attackDelay;
-    }
-
     void FixedUpdate()
     {
         Move();
@@ -42,20 +37,22 @@ public class EnemyUnit : Character
 
     private void Attack()
     {
+        curAttackDelay += Time.deltaTime;
         if (state == 1)
         {
             if (curAttackDelay > attackDelay && ally != null)
             {
+                Debug.Log(gameObject.name+"의 공격!");
                 ally.GetDameged(attackDamage);
                 curAttackDelay = 0;
             }
         }
-        curAttackDelay += Time.deltaTime;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag.Equals("AllyUnit"))
+    private void OnTriggerEnter2D(Collider2D collision)
+    {   
+        //공격 시작
+        if (collision.gameObject.tag.Equals("Ally"))
         {
             state = 1;
             ally = collision.gameObject.GetComponent<AllyUnit>();
@@ -63,8 +60,18 @@ public class EnemyUnit : Character
     }
 
     private void OnTriggerExit2D(Collider2D collision)
-    {
+    {   
+        //공격 종료
         state = 0;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //피격 시작
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        //피격 종료
+    }
 }

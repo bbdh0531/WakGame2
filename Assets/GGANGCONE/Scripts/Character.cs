@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    public int curHp;
     public int maxHp;
+    public int curHp;
     public float speed;
     public int attackDamage;
     public float attackDelay;
@@ -15,6 +15,12 @@ public class Character : MonoBehaviour
     protected Transform tr;
     protected int state; //0이동, 1공격
     protected Vector2 dir_pos;
+
+    private void OnEnable()
+    {
+        curAttackDelay = attackDelay;
+        curHp = maxHp;
+    }
 
     protected virtual void Move()
     {
@@ -27,14 +33,14 @@ public class Character : MonoBehaviour
     public virtual void GetDameged(int damage) 
     {
         curHp -= damage;
-        if (curHp < 0)
+        if (curHp <= 0)
         {
             Die();
-            Debug.Log("캐릭터 사망");
+            Debug.Log(gameObject.name + " " + "사망");
         }
         else
         {
-            Debug.Log("캐릭터" + damage + "만큼 데미지 받음");
+            Debug.Log(gameObject.name + " " + damage + "만큼 데미지 받음");
         }
     }
 
