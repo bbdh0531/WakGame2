@@ -40,11 +40,16 @@ public class EnemyUnit : Character
         curAttackDelay += Time.deltaTime;
         if (state == 1)
         {
-            if (curAttackDelay > attackDelay && ally != null)
+            if (curAttackDelay > attackDelay)
             {
-                Debug.Log(gameObject.name+"의 공격!");
+                //Debug.Log(gameObject.name+"의 공격!");
                 ally.GetDameged(attackDamage);
                 curAttackDelay = 0;
+                if (!ally.gameObject.activeSelf)
+                {
+                    ally = null;
+                    state = 0;
+                }
             }
         }
     }
@@ -52,7 +57,7 @@ public class EnemyUnit : Character
     private void OnTriggerEnter2D(Collider2D collision)
     {   
         //공격 시작
-        if (collision.gameObject.tag.Equals("Ally"))
+        if (collision.gameObject.tag.Equals("Ally")&&ally == null)
         {
             state = 1;
             ally = collision.gameObject.GetComponent<AllyUnit>();
@@ -62,7 +67,7 @@ public class EnemyUnit : Character
     private void OnTriggerExit2D(Collider2D collision)
     {   
         //공격 종료
-        state = 0;
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

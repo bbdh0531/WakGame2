@@ -6,7 +6,7 @@ public class AllyUnit : Character
 {
     //Character에서 구현하세요 GetDameged()랑 Die()구현
     EnemyUnit enemy;
-
+    Collider2D collision;
     void Start()
     {
         dir_pos.Set(1, 0);
@@ -44,9 +44,15 @@ public class AllyUnit : Character
         {
             if (curAttackDelay > attackDelay)
             {
-                Debug.Log(gameObject.name+"의 공격");
+                //Debug.Log(gameObject.name+"의 공격");
                 enemy.GetDameged(attackDamage);
                 curAttackDelay = 0;
+                if(!enemy.gameObject.activeSelf)
+                {
+                    Debug.Log(enemy.gameObject.name + "die");
+                    enemy = null;
+                    state = 0;
+                }
             }
         }
     }
@@ -54,7 +60,7 @@ public class AllyUnit : Character
     private void OnTriggerEnter2D(Collider2D collision)
     {   
         //공격 시작
-        if (collision.gameObject.tag.Equals("Enemy") && enemy == null)
+        if (collision.gameObject.tag.Equals("Enemy")&&enemy == null)
         {
             state = 1;
             enemy = collision.gameObject.GetComponent<EnemyUnit>();
@@ -64,7 +70,7 @@ public class AllyUnit : Character
     private void OnTriggerExit2D(Collider2D collision)
     {   
         //공격 종료
-        state = 0;
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
