@@ -7,33 +7,39 @@ public class Character : MonoBehaviour
     public int curHp;
     public int maxHp;
     public float speed;
-    public int attackDameged;
-    public float curAttackTime;
+    public int attackDamage;
+    public float attackDelay;
 
-    protected float lastAttackTime;
+    protected float curAttackDelay;
     protected Animator anim;
     protected Transform tr;
-    protected bool isStop;
-    protected bool isStay = false;
+    protected int state; //0이동, 1공격
     protected Vector2 dir_pos;
 
     protected virtual void Move()
     {
-        if (isStop)
+        if (state==0)
             tr.Translate(dir_pos * speed * Time.deltaTime);
         else
             tr.Translate(Vector2.zero);
     }
 
-    public virtual void GetDameged(int _damaged) 
+    public virtual void GetDameged(int damage) 
     {
-        //만약 죽으면 Die() 함수 실행
-        //아니면 데미지를 입힌다
+        curHp -= damage;
+        if (curHp < 0)
+        {
+            Die();
+            Debug.Log("캐릭터 사망");
+        }
+        else
+        {
+            Debug.Log("캐릭터" + damage + "만큼 데미지 받음");
+        }
     }
 
     protected virtual void Die()
     {
-        //게임오브젝트 비활성화
+        gameObject.SetActive(false);
     }
-
 }

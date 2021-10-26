@@ -5,13 +5,18 @@ using UnityEngine;
 public class EnemyUnit : Character
 {
     //Character에서 구현하세요 GetDameged()랑 Die()구현
-    FriendlyUnit monster;
+    AllyUnit ally;
 
     void Start()
     {
         dir_pos.Set(-1, 0);
         tr = GetComponent<Transform>();
         anim = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        curAttackDelay = attackDelay;
     }
 
     void FixedUpdate()
@@ -37,29 +42,29 @@ public class EnemyUnit : Character
 
     private void Attack()
     {
-        if (isStay)
+        if (state == 1)
         {
-            if (curAttackTime > lastAttackTime && monster != null)
+            if (curAttackDelay > attackDelay && ally != null)
             {
-                //enemy 데미지함수 호출
+                ally.GetDameged(attackDamage);
+                curAttackDelay = 0;
             }
-            curAttackTime += Time.deltaTime;
         }
+        curAttackDelay += Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag.Equals("FriendlyUnit"))
+        if (collision.gameObject.tag.Equals("AllyUnit"))
         {
-            isStay = true;
-            monster = collision.gameObject.GetComponent<FriendlyUnit>();
+            state = 1;
+            ally = collision.gameObject.GetComponent<AllyUnit>();
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        isStay = false;
-        isStop = false;
+        state = 0;
     }
 
 }

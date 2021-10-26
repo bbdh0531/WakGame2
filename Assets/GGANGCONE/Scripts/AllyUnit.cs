@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FriendlyUnit : Character
+public class AllyUnit : Character
 {
     //Character에서 구현하세요 GetDameged()랑 Die()구현
     EnemyUnit enemy;
@@ -39,29 +39,33 @@ public class FriendlyUnit : Character
     private void Attack()
     {
         //애니메이션 호출
-        if (isStay)
+        if (state == 1)
         {
-            if (curAttackTime > lastAttackTime && enemy != null)
+            if (curAttackDelay > attackDelay && enemy != null)
             {
-                //enemy 데미지함수 호출
+                enemy.GetDameged(attackDamage);
+                curAttackDelay = 0;
             }
-            curAttackTime += Time.deltaTime;
+           curAttackDelay += Time.deltaTime;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("충돌");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag.Equals("Enemy"))
         {
-            isStay = true;
+            state = 1;
             enemy = collision.gameObject.GetComponent<EnemyUnit>();
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        isStay = false;
-        isStop = false;
+        state = 0;
     }
-
 }

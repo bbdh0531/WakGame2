@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHouse : Character
+public class AllyHouse : Character
 {
     public override void GetDameged(int _damaged)
     {
@@ -11,7 +11,7 @@ public class PlayerHouse : Character
 
     private void FixedUpdate()
     {
-        if (isStay)
+        if (state == 0)
         {
             //GetDameged() »£√‚
         }
@@ -21,7 +21,7 @@ public class PlayerHouse : Character
     {
         if (collision.gameObject.tag.Equals("EnemyUnit"))
         {
-            isStay = true;
+            state = 1;
         }
     }
 
@@ -29,7 +29,7 @@ public class PlayerHouse : Character
     {
         if (collision.gameObject.tag.Equals("EnemyUnit"))
         {
-            isStay = false;
+            state = 0;
         }
     }
 }

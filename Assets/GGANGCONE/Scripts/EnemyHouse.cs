@@ -12,7 +12,7 @@ public class EnemyHouse : Character
 
     private void FixedUpdate()
     {
-        if(isStay)
+        if(state == 0)
         {
             //GetDameged() »£√‚
         }
@@ -22,7 +22,7 @@ public class EnemyHouse : Character
     {
         if(collision.gameObject.tag.Equals("FriendlyUnit"))
         {
-            isStay = true;
+            state = 1;
         }
     }
 
@@ -30,7 +30,7 @@ public class EnemyHouse : Character
     {
         if (collision.gameObject.tag.Equals("FriendlyUnit"))
         {
-            isStay = false;
+            state = 0;
         }
     }
 }
