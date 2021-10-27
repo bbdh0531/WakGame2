@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6639610254290752304}
   - component: {fileID: 6639610254290752319}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Attack_Colider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 6639610254398699343}
   - component: {fileID: 6639610254398699328}
   - component: {fileID: 6639610254398699329}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyUnit
   m_TagString: Enemy
   m_Icon: {fileID: 0}

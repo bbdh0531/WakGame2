@@ -36,7 +36,6 @@ public class Character : MonoBehaviour
         if (curHp <= 0)
         {
             Die();
-            Debug.Log(gameObject.name + " " + "»ç¸Á");
         }
         else
         {

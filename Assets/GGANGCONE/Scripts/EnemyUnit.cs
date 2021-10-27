@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyUnit : Character
 {
     //Character에서 구현하세요 GetDameged()랑 Die()구현
-    AllyUnit ally;
+    Character ally;
 
     void Start()
     {
@@ -62,21 +62,16 @@ public class EnemyUnit : Character
             state = 1;
             ally = collision.gameObject.GetComponent<AllyUnit>();
         }
+        else if (collision.gameObject.tag.Equals("AllyHouse") && ally == null)
+        {
+            state = 1;
+            ally = collision.gameObject.GetComponent<AllyHouse>();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {   
         //공격 종료
         
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //피격 시작
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        //피격 종료
     }
 }
