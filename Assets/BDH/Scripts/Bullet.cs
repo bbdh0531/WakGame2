@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MessiDoo : AllyUnit
+public class Bullet : MonoBehaviour
 {
-    
 }

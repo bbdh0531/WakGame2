@@ -7,14 +7,14 @@ public class EnemyUnit : Character
     //Character에서 구현하세요 GetDameged()랑 Die()구현
     Character ally;
 
-    void Start()
+    protected virtual void Start()
     {
         dir_pos.Set(-1, 0);
         tr = GetComponent<Transform>();
         anim = GetComponent<Animator>();
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         Move();
         Attack();
@@ -35,7 +35,7 @@ public class EnemyUnit : Character
         base.GetDameged(_damaged);
     }
 
-    private void Attack()
+    protected virtual void Attack()
     {
         curAttackDelay += Time.deltaTime;
         if (state == 1)

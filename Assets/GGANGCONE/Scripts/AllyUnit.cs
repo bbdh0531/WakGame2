@@ -6,14 +6,14 @@ public class AllyUnit : Character
 {
     //Character에서 구현하세요 GetDameged()랑 Die()구현
     Character enemy;
-    void Start()
+    protected virtual void Start()
     {
         dir_pos.Set(1, 0);
         tr = GetComponent<Transform>();
         anim = GetComponent<Animator>();
     }
     
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         Move();
         Attack();
@@ -35,7 +35,7 @@ public class AllyUnit : Character
         //애니메이션 실행
     }
 
-    private void Attack()
+    protected virtual void Attack()
     {
         //애니메이션 호출
         curAttackDelay += Time.deltaTime;
